@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Button from "./Components/Button";
 import StyledTopBar from "./Components/StyledTopBar";
 import StyledBottomBar from "./Components/StyledBottomBar";
+import { useEffect, useState } from "react";
+import useSWR from "swr";
 
 const StyledApp = styled.div`
   display: flex;
@@ -44,29 +46,53 @@ const Palette = styled.div`
   border-bottom: 1px solid #d1d5d8;
 `;
 
-const ColorStrip = styled.div`
+interface ColorStripProps {
+  code: string;
+}
+
+const ColorStrip = styled.div<ColorStripProps>`
   width: 100%;
   height: 100%;
   background-color: ${(props) => props.code};
 `;
 
 export default function Home() {
-  const colors = ["red", "blue", "green", "yellow", "orange", "purple"];
+  const schemes = ["analogous", "monochromatic", "triad", "complementary"];
+  const cols = ["red", "blue", "green", "yellow", "orange", "purple"];
+  const [colors, setColor] = useState(cols);
+  const [scheme, setScheme] = useState("analogous");
+  const [seed, setSeed] = useState("red");
+
   const colorCodes = colors.map((color) => <p key={color}>{color}</p>);
+
   const colorPallette = colors.map((color) => (
     <ColorStrip code={color} key={color} />
   ));
 
-  const schemes = ["analogous", "monochromatic", "triad", "complementary"];
-
   const schemeOptions = schemes.map((scheme) => (
-    <option key={scheme}>{scheme}</option>
+    <option key={scheme} value={scheme}>
+      {scheme}
+    </option>
   ));
+
+  const handleSchemeChange = (e: any) => {
+    setScheme(e.target.value);
+  };
+  const handleSeedChange = (e: any) => {
+    setSeed(e.target.value);
+  };
+
   return (
     <StyledApp>
       <StyledTopBar>
-        <ColorInput type={"color"}></ColorInput>
-        <PaletteSelector>{schemeOptions}</PaletteSelector>
+        <ColorInput
+          type={"color"}
+          onChange={handleSeedChange}
+          value={seed}
+        ></ColorInput>
+        <PaletteSelector onChange={handleSchemeChange} value={scheme}>
+          {schemeOptions}
+        </PaletteSelector>
         <Button>Get Color Scheme</Button>
       </StyledTopBar>
       <Palette>{colorPallette}</Palette>
