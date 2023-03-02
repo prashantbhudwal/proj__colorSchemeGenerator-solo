@@ -1,13 +1,7 @@
 "use client";
 
-import Image from "next/image";
-import styled from "styled-components";
-
-const StyledButton = styled.button`
-  background: red;
-  color: white;
-`;
+import Button from "./Components/Button";
 
 export default function Home() {
-  return <StyledButton>working</StyledButton>;
+  return <Button>Test</Button>;
 }
