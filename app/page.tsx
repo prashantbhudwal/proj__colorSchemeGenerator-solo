@@ -15,6 +15,8 @@ const StyledApp = styled.div`
 const ColorInput = styled.input`
   border: 1px solid #d1d5d8;
   border-radius: 4px;
+  height: 90%;
+  width: 10em;
 `;
 
 const PaletteSelector = styled.select`
