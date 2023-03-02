@@ -4,10 +4,9 @@ const StyledTopBar = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100%;
-  padding: 0 1em;
-  height: 3em;
+  padding: 1em 2em;
   background-color: #f6f8fa;
   border-bottom: 1px solid #d1d5d8;
 `;
