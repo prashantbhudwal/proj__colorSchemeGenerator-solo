@@ -4,7 +4,6 @@ import Button from "./Components/Button";
 import StyledTopBar from "./Components/StyledTopBar";
 import StyledBottomBar from "./Components/StyledBottomBar";
 import { useEffect, useState } from "react";
-import useSWR from "swr";
 
 const StyledApp = styled.div`
   display: flex;
@@ -57,11 +56,36 @@ const ColorStrip = styled.div<ColorStripProps>`
 `;
 
 export default function Home() {
-  const schemes = ["analogous", "monochromatic", "triad", "complementary"];
-  const cols = ["red", "blue", "green", "yellow", "orange", "purple"];
-  const [colors, setColor] = useState(cols);
-  const [scheme, setScheme] = useState("analogous");
-  const [seed, setSeed] = useState("red");
+  const schemes = ["analogic", "monochrome", "triad", "complement"];
+  const [colors, setColors] = useState([
+    "red",
+    "blue",
+    "green",
+    "yellow",
+    "orange",
+    "purple",
+  ]);
+  const [scheme, setScheme] = useState("analogic");
+  const [seed, setSeed] = useState("000");
+  const [url, setUrl] = useState(
+    `https://www.thecolorapi.com/scheme?hex=283848&mode=analogic&count=9`
+  );
+
+  useEffect(() => {
+    fetch(url)
+      .then((r) => r.json())
+      .then((data) => {
+        const colorArray = data.colors;
+        const colorCodes = colorArray.map((color: any) => color.hex.value);
+        setColors(colorCodes);
+      });
+  }, [url]);
+
+  const handleClick = () => {
+    setUrl(
+      `https://www.thecolorapi.com/scheme?hex=${seed}&mode=${scheme}&count=6`
+    );
+  };
 
   const colorCodes = colors.map((color) => <p key={color}>{color}</p>);
 
@@ -79,7 +103,9 @@ export default function Home() {
     setScheme(e.target.value);
   };
   const handleSeedChange = (e: any) => {
-    setSeed(e.target.value);
+    const color = e.target.value;
+    const hex = color.substring(1);
+    setSeed(hex);
   };
 
   return (
@@ -88,12 +114,12 @@ export default function Home() {
         <ColorInput
           type={"color"}
           onChange={handleSeedChange}
-          value={seed}
+          value={`#${seed}`}
         ></ColorInput>
         <PaletteSelector onChange={handleSchemeChange} value={scheme}>
           {schemeOptions}
         </PaletteSelector>
-        <Button>Get Color Scheme</Button>
+        <Button onClick={handleClick}>Get Color Scheme</Button>
       </StyledTopBar>
       <Palette>{colorPallette}</Palette>
       <StyledBottomBar>{colorCodes}</StyledBottomBar>
