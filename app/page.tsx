@@ -8,19 +8,23 @@ import { useEffect, useState } from "react";
 const StyledApp = styled.div`
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  width: 70vw;
 `;
 
 const ColorInput = styled.input`
   border: 1px solid #d1d5d8;
   border-radius: 4px;
   height: 90%;
+  max-height: 4em;
   width: 10em;
 `;
 
 const PaletteSelector = styled.select`
+  display: flex;
+  flex-direction: row;
   padding: 0.5em 0.5em;
   font-size: 1.5rem;
   width: 15em;
@@ -56,7 +60,7 @@ const ColorStrip = styled.div<ColorStripProps>`
 `;
 
 export default function Home() {
-const schemes = ["analogic", "monochrome", "triad", "complement"];
+  const schemes = ["analogic", "monochrome", "triad", "complement"];
   const [colors, setColors] = useState([
     "red",
     "blue",

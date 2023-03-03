@@ -1,4 +1,5 @@
 import StyledComponentsRegistry from "./lib/registry";
+import "./global.css";
 
 export const metadata = {
   title: "Test",

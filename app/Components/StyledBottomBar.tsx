@@ -4,7 +4,7 @@ const StyledBottomBar = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100%;
   padding: 0 1em;
   height: 3em;
