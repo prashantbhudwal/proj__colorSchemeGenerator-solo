@@ -56,7 +56,7 @@ const ColorStrip = styled.div<ColorStripProps>`
 `;
 
 export default function Home() {
-  const schemes = ["analogic", "monochrome", "triad", "complement"];
+const schemes = ["analogic", "monochrome", "triad", "complement"];
   const [colors, setColors] = useState([
     "red",
     "blue",
@@ -66,7 +66,7 @@ export default function Home() {
     "purple",
   ]);
   const [scheme, setScheme] = useState("analogic");
-  const [seed, setSeed] = useState("000");
+  const [seed, setSeed] = useState("000000");
   const [url, setUrl] = useState(
     `https://www.thecolorapi.com/scheme?hex=283848&mode=analogic&count=9`
   );
